@@ -1,24 +1,24 @@
-ciItem = '<a href="{{url}}" class="ci-{{color}}">{{name}}</a>'
+ciItem = '<a href="{{url}}" class="ci-{{color}}">{{name}}</a>';
 
-projetoItem = '<li id="{{slug_projeto}}" class="projetoItem"></li>'
+projetoItem = '<li id="{{slug_projeto}}" class="projetoItem"></li>';
 
-PROJETOS = []
+PROJETOS = [];
 
 function projetos(data){
     for (var i=0; i < data.jobs.length; i++) {
         PROJETOS[i] = data.jobs[i];
         PROJETOS[i]['slug_projeto'] =  slugify(data.jobs[i]['name']);
         $("#ci").append(projetoItem.format(PROJETOS[i]));
-    };
+    }
 }
 
-$.getScript("http://busca.plataformas.glb.com/api/json?jsonp=projetos")
+$.getScript("http://busca.plataformas.glb.com/api/json?jsonp=projetos");
 
 function atualizar_ci(data){
-    var slug_projeto = slugify(data.name)
+    var slug_projeto = slugify(data.name);
     $projeto = $("#{{slug_projeto}}".format({slug_projeto: slug_projeto}));
-    var html = ciItem.format(data)
-    $projeto.html(html)
+    var html = ciItem.format(data);
+    $projeto.html(html);
 }
 
 setInterval(function(){
@@ -26,7 +26,7 @@ setInterval(function(){
         var baseUrl = "http://busca.plataformas.glb.com/job/{{name}}/api/json?jsonp=atualizar_ci";
         var jenkinsUrl = baseUrl.format(PROJETOS[i]);
         $.getScript(jenkinsUrl);
-    };
+    }
 }, 2000);
 
 // {
