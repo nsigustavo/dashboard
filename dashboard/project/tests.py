@@ -26,4 +26,3 @@ class TestCodeAnalysis(TestCase):
         analysis_result = code_analysis(project)
         self.assertTrue(type(analysis_result) is dict)
         self.assertEqual(len(analysis_result), 5)
-        shutil.rmtree(project.name)

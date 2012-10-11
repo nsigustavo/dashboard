@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Details of project {{project.name}}</title>
+    </head>
+
+    <body>
+        <h1>{{project.name}} - Details</h1>
+        <ul>
+            <li>Pep8 - {{code_analysis.pep8.total_errors}} erros</li>
+            <li>PyFlakes - {{code_analysis.pyflakes.total_errors}} erros</li>
+            <li>CloneDigger - {{code_analysis.clonedigger.percentage_clones}}%</li>
+            <li>JSHint - {{code_analysis.jshint.total_errors}} erros</li>
+            <li>CSSLint - {{code_analysis.csslint.total_errors}} erros</li>
+        </ul>
+
+    </body>
+</html>
