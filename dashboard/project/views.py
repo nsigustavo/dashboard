@@ -2,7 +2,7 @@ from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from models import Project, Analysis
-from analyse import code_analysis
+from analyze import code_analysis
 
 
 def detail(request, project_id):
@@ -15,7 +15,7 @@ def detail(request, project_id):
                                context_instance=RequestContext(request))
 
 
-def analyse(request, project_id):
+def analyze(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     result_analysis = code_analysis(project)
 

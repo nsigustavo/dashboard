@@ -18,12 +18,12 @@ class TestViews(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
-    def test_project_analyse_should_be_acessible(self):
-        url = '/project/%d/analyse/' % self.analysis.project.id
+    def test_project_analyze_should_be_acessible(self):
+        url = '/project/%d/analyze/' % self.analysis.project.id
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_absent_project_analyse_should_not_be_acessible(self):
-        url = '/project/999/analyse/'
+    def test_absent_project_analyze_should_not_be_acessible(self):
+        url = '/project/999/analyze/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)

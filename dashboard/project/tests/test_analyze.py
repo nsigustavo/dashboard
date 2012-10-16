@@ -1,7 +1,7 @@
 import os
 import shutil
 from django.test import TestCase
-from dashboard.project.analyse import git_clone, code_analysis
+from dashboard.project.analyze import git_clone, code_analysis
 from dashboard.project.models import Project
 
 
