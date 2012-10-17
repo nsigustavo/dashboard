@@ -1,6 +1,6 @@
 import git
 import shutil
-from code_quality_tools.code_quality_tools import CodeQualityCheck
+from code_quality_tools import CodeQualityCheck
 
 
 def git_clone(url_git, name=None):
