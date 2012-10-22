@@ -4,13 +4,10 @@
         <title>Details of project {{analysis.project.name}}</title>
         <link rel="stylesheet" href="/static/css/bootstrap.css">
         <link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
-        <link rel="stylesheet" href="/static/css/details.css">
-
-        <script type="text/javascript" src="/static/js/jquery.js"></script>
-        <script type="text/javascript" src="/static/js/highcharts.js"></script>
+        <link rel="stylesheet" href="/static/css/detail.css">
     </head>
 
-    <body class="container-fluid">
+    <body class="container-fluid dashboard-view">
         <header class="row-fluid">
             <h1 class="span10">{{analysis.project.name}} - Details</h1>
             <div class="span2 btn-analyse">
@@ -45,56 +42,28 @@
             </li>
         </ul>
 
-        <div id="chart"></div>
+        <section class="row-fluid charts">
+            <div id="total-chart" class="big-chart span12"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="pep8-chart" class="little-chart span6"></div>
+            <div id="pyflakes-chart" class="little-chart span6"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="clonedigger-chart" class="little-chart span6"></div>
+            <div id="jshint-chart" class="little-chart span6"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="csslint-chart" class="little-chart span6"></div>
+        </section>
+
     </body>
-    <script type="text/javascript">
-        var chart;
-        $(document).ready(function() {
-            chart = new Highcharts.Chart({
-                chart: {
-                    renderTo: 'chart',
-                    type: 'line',
-                    marginRight: 130,
-                    marginBottom: 25
-                },
-                title: {
-                    text: 'Monthly Average Temperature',
-                    x: -20 //center
-                },
-                xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: {
-                        text: 'Temperature (°C)'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    formatter: function() {
-                            return '<b>'+ this.series.name +'</b><br/>'+
-                            this.x +': '+ this.y +'°C';
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'top',
-                    x: -10,
-                    y: 100,
-                    borderWidth: 0
-                },
-                series: [{
-                    name: 'Tokyo',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-                }]
-            });
-        });
-    </script>
+
     <script type="text/javascript" src="/static/js/base.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/highcharts.js"></script>
+    <script type="text/javascript" src="/static/js/detail.js"></script>
 </html>
