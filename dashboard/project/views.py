@@ -30,3 +30,7 @@ def analyze(request, project_id):
     analysis.save()
 
     return HttpResponse('done')
+
+def all_projects(request):
+    projects = Project.objects.all()
+    return render_to_response('show_projects.html', {'projects': projects})
