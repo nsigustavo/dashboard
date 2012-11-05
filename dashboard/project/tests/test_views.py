@@ -27,3 +27,15 @@ class TestViews(TestCase):
         url = '/project/999/analyze/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+    def test_should_show_projects_and_get_200(self):
+        url = "/projects/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_should_visit_create_project_and_get_200(self):
+        url = "/projects/create"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        

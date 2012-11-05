@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^project/(?P<project_id>\d+)/analyze/$', 'dashboard.project.views.analyze'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^projects/$', 'dashboard.project.views.all_projects'),
+    url(r'^projects/create$', 'dashboard.project.views.create_project'),
 )
 
 handler404 = 'dashboard.views.view_404'

@@ -1,8 +1,10 @@
 from django.template import RequestContext
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from models import Project, Analysis
+
+from models import Project, ProjectForm, Analysis
 from analyze import code_analysis
+
 
 
 def detail(request, project_id):
@@ -13,7 +15,6 @@ def detail(request, project_id):
 
     return render_to_response('detail.html', {'analysis': project_analysis},
                                context_instance=RequestContext(request))
-
 
 def analyze(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
@@ -34,3 +35,14 @@ def analyze(request, project_id):
 def all_projects(request):
     projects = Project.objects.all()
     return render_to_response('show_projects.html', {'projects': projects})
+
+def create_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/projects/')
+    else:
+        form = ProjectForm()
+    
+    return render_to_response('create_project.html', {'form': form}, context_instance=RequestContext(request))

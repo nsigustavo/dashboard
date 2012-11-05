@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 
 class Project(models.Model):
@@ -14,6 +15,12 @@ class Project(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+
+
+class ProjectForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = ('name', 'url_git')
 
 
 class Analysis(models.Model):
