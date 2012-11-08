@@ -1,10 +1,10 @@
 Django==1.4.1
-django-nose==1.1
-MySQL-python==1.2.4b4
-git+git://github.com/clybob/code_quality_tools.git
 GitPython==0.3.2.RC1
-gitdb==0.5.4
-pygit==0.1
-nose==1.2.1
+MySQL-python==1.2.4b4
 async==0.6.1
+django-nose==1.1
+git+git://github.com/clybob/code_quality_tools.git
+gitdb==0.5.4
+nose==1.2.1
+pygit==0.1
 smmap==0.8.2
