@@ -1,7 +1,9 @@
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render_to_response
+
 from models import Project, Analysis
+
 from analyze import code_analysis
 
 
@@ -11,8 +13,7 @@ def detail(request, project_id):
     except Exception:
         raise Http404
 
-    return render_to_response('detail.html', {'analysis': project_analysis},
-                               context_instance=RequestContext(request))
+    return render_to_response('detail.html', {'analysis': project_analysis}, context_instance=RequestContext(request))
 
 
 def analyze(request, project_id):
@@ -31,6 +32,19 @@ def analyze(request, project_id):
 
     return HttpResponse('done')
 
+
 def all_projects(request):
     projects = Project.objects.all()
     return render_to_response('show_projects.html', {'projects': projects})
+
+
+def run_task(request, project_id, task):
+    project = get_object_or_404(Project, pk=project_id)
+    erros = code_analysis(project, task=task)
+
+    analysis = Analysis.objects.filter(project_id=project_id).order_by('-date_executed')[0]
+    analysis_task = getattr(analysis, task)
+    analysis_task = erros['total_errors']
+    analysis.save()
+
+    return HttpResponse(analysis_task)
