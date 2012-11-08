@@ -1,8 +1,8 @@
 from django.template import RequestContext
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 
-from models import Project, Analysis
+from models import Project, ProjectForm, Analysis
 
 from analyze import code_analysis
 
@@ -48,3 +48,15 @@ def run_task(request, project_id, task):
     analysis.save()
 
     return HttpResponse(analysis_task)
+
+
+def create_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/projects/')
+    else:
+        form = ProjectForm()
+
+    return render_to_response('create_project.html', {'form': form}, context_instance=RequestContext(request))

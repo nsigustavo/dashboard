@@ -1,0 +1,40 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>Register a Project</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
+
+        <script type="text/javascript" src="/static/js/jquery.js"></script>
+    </head>
+
+    <body class="container-fluid">
+        <header class="row-fluid">
+            <h1 class="span10">Register a Project</h1>
+        </header>
+
+        <div class="span12">
+            <form action="/projects/create" method="POST">
+                {% csrf_token %}
+                <fieldset>
+                    {% for field in form%}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                    <div>
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                    {%endfor%}
+                    <input type='submit' value="Register" />
+                </fieldset>
+            </form>
+            <!-- <legend>Register a Project</legend>
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Type name of project">
+            <label>Url Git</label>
+            <input type="text" name="url_git" placeholder="Type url of git"><br />
+             -->
+        </div>
+    </body>
+</html>

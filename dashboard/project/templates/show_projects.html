@@ -18,6 +18,8 @@
                 <tr>
                     <th>Nome</th>
                     <th>Git</th>
+                    <th>Analyze</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +30,9 @@
                     </td>
                     <td>
                         {{project.url_git}}
+                    </td>
+                    <td>
+                        <a class="btn btn-mini analyze" href="/project/{{project.id}}/analyze">Analyze</a>
                     </td>
                     <td>
                         <a class="btn btn-mini" href="/project/{{project.id}}">Show</a>
@@ -41,5 +46,6 @@
                 Projects Created : {{projects.count}}
             </p>
         </div>
+        <script type="text/javascript" src="/static/js/base.js"></script>
     </body>
 </html>
