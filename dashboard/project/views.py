@@ -24,7 +24,7 @@ def analyze(request, project_id):
     analysis.project = project
     analysis.pep8 = result_analysis['pep8']['total_errors']
     analysis.pyflakes = result_analysis['pyflakes']['total_errors']
-    analysis.clonedigger = result_analysis['clonedigger']['percentage_clones']
+    analysis.clonedigger = result_analysis['clonedigger']['total_errors']
     analysis.jshint = result_analysis['jshint']['total_errors']
     analysis.csslint = result_analysis['csslint']['total_errors']
     analysis.result = result_analysis
@@ -43,7 +43,12 @@ def run_task(request, project_id, task):
     erros = code_analysis(project, task=task)
 
     analysis = Analysis.objects.filter(project_id=project_id).order_by('-date_executed')[0]
-    analysis_task = getattr(analysis, task)
+
+    try:
+        analysis_task = getattr(analysis, task)
+    except AttributeError:
+        raise Http404
+
     analysis_task = erros['total_errors']
     analysis.save()
 

@@ -1,4 +1,7 @@
 from django.test import TestCase
+from django.test.client import RequestFactory
+
+from dashboard.project.views import run_task
 from dashboard.project.models import Analysis
 
 
@@ -38,4 +41,34 @@ class TestViews(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-        
+
+class TestRunTaskView(TestCase):
+    fixtures = ['project.json', 'analysis.json']
+
+    def setUp(self):
+        self.tasks = ['pep8', 'pyflakes', 'clonedigger', 'jshint', 'csslint']
+
+    def test_acessar_tasks_padrao(self):
+        for task in self.tasks:
+            response = self.client.get('/project/1/%s/' % task)
+            self.assertEqual(200, response.status_code)
+
+    def test_task_deve_retornar_numero_de_erros(self):
+        erros_por_task = {
+            'pep8': '19',
+            'pyflakes': '6',
+            'clonedigger': '19',
+            'jshint': '1589',
+            'csslint': '792',
+        }
+
+        request = RequestFactory().get('/project/1/task')
+
+        for task in self.tasks:
+            response = run_task(request, project_id=1, task=task)
+            self.assertEqual(erros_por_task[task], response.content)
+
+    def test_deve_retornar_404_para_task_nao_existente(self):
+        response = self.client.get('/project/1/task_inexistente/')
+        self.assertEqual(404, response.status_code)
+
