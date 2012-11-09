@@ -1,0 +1,73 @@
+.dashboard-view {
+    background-color: #F5F5F5;
+}
+
+.btn-analyse {
+    text-align: right;
+}
+
+.btn-analyse .btn {
+    margin-top: 20px;
+}
+
+.info-execution span {
+    font-weight: bold;
+}
+
+ul.errors {
+    margin-left: 0;
+    border-top: 4px dashed #ddd;
+    border-bottom: 4px dashed #ddd;
+    padding: 20px 0;
+}
+
+ul.errors li.span2 {
+    display: block;
+    height: 60px;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #fbfbfb;
+}
+
+ul.errors li.span2 span {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.big-chart {
+    margin-top: 30px;
+    height: 300px;
+}
+
+.big-chart .highcharts-container,
+.big-chart svg {
+    height: 310px !important;
+}
+
+.little-chart {
+    height: 200px;
+    margin-top: 40px;
+}
+
+.little-chart .highcharts-container,
+.little-chart svg {
+    height: 210px !important;
+}
+
+.charts {
+    -moz-box-shadow: 0 1px 0 #ffffff;
+    -webkit-box-shadow: 0 1px 0 white;
+    box-shadow: 0 1px 0 white;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 40px;
+}
+
+.charts .little-chart:first-child {
+    -moz-box-shadow: 1px 0 0 #ffffff;
+    -webkit-box-shadow: 1px 0 0 white;
+    box-shadow: 1px 0 0 white;
+    border-right: 1px solid #E0E0E0;
+}

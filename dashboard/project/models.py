@@ -38,7 +38,7 @@ class Analysis(models.Model):
 
     @property
     def date_executed_for_humans(self):
-        return self.date_executed.strftime("%c")
+        return self.date_executed.strftime("%d/%m/%Y %H:%M")
 
     def __str__(self):
         project_name = self.project.name

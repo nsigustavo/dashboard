@@ -1,6 +1,8 @@
 from django.template import RequestContext
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
+from django.conf import settings
+from django.utils import simplejson
 
 from models import Project, ProjectForm, Analysis
 
@@ -65,3 +67,27 @@ def create_project(request):
         form = ProjectForm()
 
     return render_to_response('create_project.html', {'form': form}, context_instance=RequestContext(request))
+
+
+def history(request, project_id, metric_name):
+    if metric_name not in settings.METRICS:
+        raise Http404
+
+    dates = []
+    metric_analysis = []
+
+    if 'numberOfElements' in request.GET:
+        limit = request.GET['numberOfElements']
+    else:
+        limit = 10
+
+    analysis_history = Analysis.objects.filter(project_id=project_id).order_by('date_executed')[:limit]
+
+    for analysis in analysis_history:
+        dates.append(analysis.date_executed_for_humans)
+        metric_erros = getattr(analysis, metric_name)
+        metric_analysis.append(metric_erros)
+
+    history = simplejson.dumps({'dates': dates, 'metric_analysis': metric_analysis})
+
+    return HttpResponse(history, mimetype='application/json')
