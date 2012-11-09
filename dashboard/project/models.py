@@ -10,6 +10,17 @@ class Project(models.Model):
     class Meta:
         db_table = 'dashboard_project'
 
+    def get_analysis_history(self, metric_name='ALL', limit=10):
+        history = {'dates': [], 'metric_analysis': []}
+        analysis_history = Analysis.objects.filter(project_id=self.id).order_by('date_executed')[:limit]
+
+        for analysis in analysis_history:
+            history['dates'].append(analysis.date_executed_for_humans)
+            metric_erros = getattr(analysis, metric_name)
+            history['metric_analysis'].append(metric_erros)
+
+        return history
+
     def __str__(self):
         return self.name
 

@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.utils import simplejson
 
 from dashboard.project.views import run_task
 from dashboard.project.models import Analysis
@@ -41,6 +42,25 @@ class TestViews(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
+    def test_project_history_should_be_acessible(self):
+        url = '/project/%d/history/pep8.json' % self.analysis.project.id
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_history_with_invalid_metric_name_should_not_be_acessible(self):
+        url = '/project/%d/history/pep999.json' % self.analysis.project.id
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_project_history_returns_correct_json(self):
+        url = '/project/%d/history/pep8.json' % self.analysis.project.id
+        response = self.client.get(url)
+        content_type = response.items().pop()[1]
+        content = simplejson.loads(response.content)
+        self.assertEqual(content_type, 'application/json')
+        self.assertEqual(len(content['dates']), 2)
+        self.assertEqual(len(content['metric_analysis']), 2)
+
 
 class TestRunTaskView(TestCase):
     fixtures = ['project.json', 'analysis.json']
@@ -71,4 +91,3 @@ class TestRunTaskView(TestCase):
     def test_deve_retornar_404_para_task_nao_existente(self):
         response = self.client.get('/project/1/task_inexistente/')
         self.assertEqual(404, response.status_code)
-

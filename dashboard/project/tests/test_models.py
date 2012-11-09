@@ -1,8 +1,21 @@
 from django.test import TestCase
-from dashboard.project.models import ProjectForm
+from dashboard.project.models import ProjectForm, Project
 
 
-class TestModels(TestCase):
+class TestModelsProject(TestCase):
+    fixtures = ['project.json', 'analysis.json']
+
+    def setUp(self):
+        self.project = Project.objects.get(id=1)
+
+    def test_get_analysis_history_should_return_dict(self):
+        analysis_history = self.project.get_analysis_history()
+        self.assertEqual(type(analysis_history), 'dict')
+        self.assertTrue(analysis_history['dates'] > 0)
+        self.assertTrue(analysis_history['metric_analysis'] > 0)
+
+
+class TestModelsProjectForm(TestCase):
 
     def test_should_create_project_with_form(self):
         project_form = ProjectForm({'name': 'Testing', 'url_git': 'git_url'})
