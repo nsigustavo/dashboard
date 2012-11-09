@@ -1,0 +1,69 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>Details of project {{analysis.project.name}}</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="/static/css/detail.css">
+    </head>
+
+    <body class="container-fluid dashboard-view">
+        <header class="row-fluid">
+            <h1 class="span10">{{analysis.project.name}} - Details</h1>
+            <div class="span2 btn-analyse">
+                <button class="analyze btn btn-success">Analyze Project</button>
+            </div>
+        </header>
+
+        <div class="row-fluid info-execution">
+            <p class="span12">
+                <span>Last execution:</span> {{analysis.date_executed_for_humans}}
+            </p>
+        </div>
+
+        <ul class="row-fluid errors">
+            <li class="span2">
+                <span>Pep8</span>{{analysis.pep8}} erros
+            </li>
+            <li class="span2">
+                <span>PyFlakes</span>{{analysis.pyflakes}} erros
+            </li>
+            <li class="span2">
+                <span>CloneDigger</span>{{analysis.clonedigger}}%
+            </li>
+            <li class="span2">
+                <span>JSHint</span>{{analysis.jshint}} erros
+            </li>
+            <li class="span2">
+                <span>CSSLint</span>{{analysis.csslint}} erros
+            </li>
+            <li class="span2">
+                <span>Total</span>98
+            </li>
+        </ul>
+
+        <section class="row-fluid charts">
+            <div id="total-chart" class="big-chart span12"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="pep8-chart" class="little-chart span6"></div>
+            <div id="pyflakes-chart" class="little-chart span6"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="clonedigger-chart" class="little-chart span6"></div>
+            <div id="jshint-chart" class="little-chart span6"></div>
+        </section>
+
+        <section class="row-fluid charts">
+            <div id="csslint-chart" class="little-chart span6"></div>
+        </section>
+
+    </body>
+
+    <script type="text/javascript" src="/static/js/base.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/highcharts.js"></script>
+    <script type="text/javascript" src="/static/js/detail.js"></script>
+</html>

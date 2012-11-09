@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>All Projects</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
+
+        <script type="text/javascript" src="/static/js/jquery.js"></script>
+    </head>
+
+    <body class="container-fluid">
+        <header class="row-fluid">
+            <h1 class="span10">All Projects</h1>
+        </header>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Git</th>
+                    <th>Analyze</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td>
+                        {{project.name}}
+                    </td>
+                    <td>
+                        {{project.url_git}}
+                    </td>
+                    <td>
+                        <a class="btn btn-mini analyze" href="/project/{{project.id}}/analyze">Analyze</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-mini" href="/project/{{project.id}}">Show</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class='row-fluid'>
+            <p class="span12">
+                Projects Created : {{projects.count}}
+            </p>
+        </div>
+        <script type="text/javascript" src="/static/js/base.js"></script>
+    </body>
+</html>
