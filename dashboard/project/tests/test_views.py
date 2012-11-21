@@ -55,11 +55,11 @@ class TestRunTaskView(TestCase):
 
     def test_task_deve_retornar_numero_de_erros(self):
         erros_por_task = {
-            'pep8': '19',
-            'pyflakes': '6',
-            'clonedigger': '19',
-            'jshint': '1589',
-            'csslint': '792',
+            'pep8': '20',
+            'pyflakes': '2',
+            'clonedigger': '21',
+            'jshint': '102',
+            'csslint': '755',
         }
 
         request = RequestFactory().get('/project/1/task')
