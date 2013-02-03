@@ -68,26 +68,26 @@ class TestRunTaskView(TestCase):
     def setUp(self):
         self.tasks = ['pep8', 'pyflakes', 'clonedigger', 'jshint', 'csslint']
 
-    def test_acessar_tasks_padrao(self):
+    def test_access_default_tasks(self):
         for task in self.tasks:
             response = self.client.get('/project/1/%s/' % task)
             self.assertEqual(200, response.status_code)
 
-    def test_task_deve_retornar_numero_de_erros(self):
-        erros_por_task = {
-            'pep8': '20',
+    def test_task_should_be_return_number_of_errors(self):
+        errors_per_task = {
+            'pep8': '12',
             'pyflakes': '2',
             'clonedigger': '21',
             'jshint': '102',
-            'csslint': '755',
+            'csslint': '769',
         }
 
         request = RequestFactory().get('/project/1/task')
 
         for task in self.tasks:
             response = run_task(request, project_id=1, task=task)
-            self.assertEqual(erros_por_task[task], response.content)
+            self.assertEqual(errors_per_task[task], response.content)
 
-    def test_deve_retornar_404_para_task_nao_existente(self):
-        response = self.client.get('/project/1/task_inexistente/')
+    def test_should_be_return_404_for_inexistent_task(self):
+        response = self.client.get('/project/1/inexistent_task/')
         self.assertEqual(404, response.status_code)

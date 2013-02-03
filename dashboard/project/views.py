@@ -10,12 +10,20 @@ from analyze import code_analysis
 
 
 def detail(request, project_id):
-    try:
-        project_analysis = Analysis.objects.filter(project_id=project_id).order_by('-date_executed')[0]
-    except Exception:
+    list_project_analysis = Analysis.objects.filter(
+        project_id=project_id
+    ).order_by('-date_executed')
+
+    if not list_project_analysis:
         raise Http404
 
-    return render_to_response('detail.html', {'analysis': project_analysis}, context_instance=RequestContext(request))
+    project_analysis = list_project_analysis[0]
+
+    return render_to_response(
+        'detail.html',
+        {'analysis': project_analysis},
+        context_instance=RequestContext(request)
+    )
 
 
 def analyze(request, project_id):
@@ -42,16 +50,18 @@ def all_projects(request):
 
 def run_task(request, project_id, task):
     project = get_object_or_404(Project, pk=project_id)
-    erros = code_analysis(project, task=task)
+    errors = code_analysis(project, task=task)
 
-    analysis = Analysis.objects.filter(project_id=project_id).order_by('-date_executed')[0]
+    analysis = Analysis.objects.filter(
+        project_id=project_id
+    ).order_by('-date_executed')[0]
 
     try:
         analysis_task = getattr(analysis, task)
     except AttributeError:
         raise Http404
 
-    analysis_task = erros['total_errors']
+    analysis_task = errors['total_errors']
     analysis.save()
 
     return HttpResponse(analysis_task)
@@ -66,7 +76,11 @@ def create_project(request):
     else:
         form = ProjectForm()
 
-    return render_to_response('create_project.html', {'form': form}, context_instance=RequestContext(request))
+    return render_to_response(
+        'create_project.html',
+        {'form': form},
+        context_instance=RequestContext(request)
+    )
 
 
 def history(request, project_id, metric_name):
@@ -81,13 +95,18 @@ def history(request, project_id, metric_name):
     else:
         limit = 10
 
-    analysis_history = Analysis.objects.filter(project_id=project_id).order_by('date_executed')[:limit]
+    analysis_history = Analysis.objects.filter(
+        project_id=project_id
+    ).order_by('date_executed')[:limit]
 
     for analysis in analysis_history:
         dates.append(analysis.date_executed_for_humans)
         metric_erros = getattr(analysis, metric_name)
         metric_analysis.append(metric_erros)
 
-    history = simplejson.dumps({'dates': dates, 'metric_analysis': metric_analysis})
+    history = simplejson.dumps({
+        'dates': dates,
+        'metric_analysis': metric_analysis
+    })
 
     return HttpResponse(history, mimetype='application/json')

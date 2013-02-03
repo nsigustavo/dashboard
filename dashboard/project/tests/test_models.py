@@ -9,8 +9,8 @@ class TestModelsProject(TestCase):
         self.project = Project.objects.get(id=1)
 
     def test_get_analysis_history_should_return_dict(self):
-        analysis_history = self.project.get_analysis_history()
-        self.assertEqual(type(analysis_history), 'dict')
+        analysis_history = self.project.get_analysis_history('pep8')
+        self.assertEqual(type(analysis_history), type({}))
         self.assertTrue(analysis_history['dates'] > 0)
         self.assertTrue(analysis_history['metric_analysis'] > 0)
 
