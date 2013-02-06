@@ -1,5 +1,5 @@
 [
-    {"pk": 1, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test1", "date_created": "2012-10-08"}},
-    {"pk": 2, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test2", "date_created": "2012-10-08"}},
-    {"pk": 3, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test3", "date_created": "2012-10-08"}}
+    {"pk": 1, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test1", "date_created": "2012-10-08", "path": "code_quality_tools"}},
+    {"pk": 2, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test2", "date_created": "2012-10-08", "path": "code_quality_tools"}},
+    {"pk": 3, "model": "project.project", "fields": {"url_git": "https://github.com/clybob/code_quality_tools.git", "name": "Test3", "date_created": "2012-10-08", "path": "code_quality_tools"}}
 ]
