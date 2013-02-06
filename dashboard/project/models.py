@@ -34,7 +34,7 @@ class Project(models.Model):
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ('name', 'url_git')
+        fields = ('name', 'url_git', 'path')
 
 
 class Analysis(models.Model):
