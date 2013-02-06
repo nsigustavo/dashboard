@@ -38,7 +38,7 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_should_visit_create_project_and_get_200(self):
-        url = "/projects/create"
+        url = "/project/create"
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
