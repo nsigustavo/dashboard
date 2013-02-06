@@ -14,6 +14,7 @@ def git_clone(url_git, name=None):
 
 def code_analysis(project, task=None):
     base_path = os.getcwd()
+    clean_clones(project, base_path)
     os.chdir('/tmp')
 
     check = CodeQualityCheck()
@@ -28,8 +29,15 @@ def code_analysis(project, task=None):
     else:
         analysis_result = check.get_all_errors()
 
-    os.chdir('/tmp')
-    shutil.rmtree(project.name)
-    os.chdir(base_path)
+    clean_clones(project, base_path)
 
     return analysis_result
+
+
+def clean_clones(project, return_path):
+    try:
+        os.chdir('/tmp')
+        shutil.rmtree(project.name)
+        os.chdir(return_path)
+    except:
+        pass
