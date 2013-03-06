@@ -21,7 +21,10 @@ def detail(request, project_id):
 
     return render_to_response(
         'detail.html',
-        {'analysis': project_analysis},
+        {
+            'analysis': project_analysis,
+            'result': eval(project_analysis.result)
+        },
         context_instance=RequestContext(request)
     )
 
