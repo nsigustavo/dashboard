@@ -100,7 +100,7 @@ def history(request, project_id, metric_name):
 
     analysis_history = Analysis.objects.filter(
         project_id=project_id
-    ).order_by('date_executed')[:limit]
+    ).order_by('-date_executed')[:limit]
 
     for analysis in analysis_history:
         dates.append(analysis.date_executed_for_humans)
