@@ -35,11 +35,11 @@ def analyze(request, project_id):
 
     analysis = Analysis()
     analysis.project = project
-    analysis.pep8 = result_analysis['pep8']['total_errors']
-    analysis.pyflakes = result_analysis['pyflakes']['total_errors']
-    analysis.clonedigger = result_analysis['clonedigger']['total_errors']
-    analysis.jshint = result_analysis['jshint']['total_errors']
-    analysis.csslint = result_analysis['csslint']['total_errors']
+    analysis.pep8 = result_analysis['pep8']['percentage_errors']
+    analysis.pyflakes = result_analysis['pyflakes']['percentage_errors']
+    analysis.clonedigger = result_analysis['clonedigger']['percentage_errors']
+    analysis.jshint = result_analysis['jshint']['percentage_errors']
+    analysis.csslint = result_analysis['csslint']['percentage_errors']
     analysis.result = result_analysis
     analysis.save()
 
